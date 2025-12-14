@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IoT Radiator Digital Twin</title>
+
+  <link rel="stylesheet" href="../../styles/imgs.css">
+  <link rel="stylesheet" href="../../styles/base.css">
+  
+
+  <!-- Syntax highlighting -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+
+  <style>
+    :root {
+      --bg: #111;
+      --bg-panel: #1a1a1a;
+      --fg: #f1f1f1;
+      --accent: #ff7b3a;
+      --accent-soft: #ffb38a;
+      --card-bg: #1f1f1f;
+      --link-colour: #ff7b3a;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      font-family: system-ui, sans-serif;
+      color: var(--fg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    header {
+      width: 100%;
+      padding: 1.5rem 0;
+      background: var(--bg-panel);
+      border-bottom: 2px solid var(--accent);
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.4rem;
+      color: var(--accent);
+    }
+
+    header p {
+      margin-top: 0.3rem;
+      opacity: 0.8;
+    }
+
+    .main-wrapper {
+      width: 100%;
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 1.5rem;
+      background: var(--bg-panel);
+      border-radius: 16px;
+      border: 1px solid #2a2a2a;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+      overflow: hidden;
+    }
+
+    /* Ensure images never overflow */
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 1rem auto;
+    }
+
+    .image-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .image-box img {
+      width: 100%;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .section-title {
+      font-size: 1.8rem;
+      margin-top: 2rem;
+      border-left: 5px solid var(--accent);
+      padding-left: 0.75rem;
+    }
+
+    .timeline {
+      margin-top: 1.5rem;
+      border-left: 3px solid var(--accent);
+      padding-left: 1.5rem;
+    }
+
+    .timeline-step {
+      margin-bottom: 2rem;
+      position: relative;
+    }
+
+    .timeline-step::before {
+      content: "";
+      position: absolute;
+      left: -1.1rem;
+      top: 0.3rem;
+      width: 14px;
+      height: 14px;
+      background: var(--accent);
+      border-radius: 50%;
+      box-shadow: 0 0 6px var(--accent);
+    }
+
+    .timeline-step h3 {
+      margin: 0;
+      color: var(--accent-soft);
+      font-size: 1.4rem;
+    }
+
+    .code-block p {
+      text-align: center;
+      text-decoration: underline;
+    }
+
+    footer {
+      margin: 3rem 0 1rem;
+      opacity: 0.7;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+<header>
+  <h1>Radiator Digital Twin</h1>
+  <p>Real-time monitoring and simulation of my radiator and heating</p>
+</header>
+
+<div class="main-wrapper">
+  <section>
+    <h2 class="section-title">Overview</h2>
+    <p>
+      This project is a stepping stone for me into the world of Industry 4.0.
+      This page highlights the foundations for the development of a radiator digital twin,
+      from initially capturing real-time temperature data to ultimately displaying it in an immersive,
+      simulated digital environment.
+      <br><br>
+      <a href="https://youtu.be/oLbgZInLvYg">YouTube video here 🙂</a>
+    </p>
+  </section>
+</div>
+
+<h2 class="section-title">The Project</h2>
+
+<div class="main-wrapper">
+  <section>
+    <div class="timeline">
+      <div class="timeline-step">
+        <h3>1. Data Acquisition (Physical Components)</h3>
+        <p>
+          This project utilises inexpensive off-the-shelf devices.
+          The sensor used is a
+          <a href="https://thepihut.com/products/waterproof-ds18b20-digital-temperature-sensor-extras">
+            DS18B20 digital temperature sensor
+          </a>.
+          It is waterproof (IP67), with a measuring range of -55°C to +125°C and ±0.5°C accuracy
+          between -10°C and +85°C.
+          <br><br>
+          The sensor is configurable via a One-Wire interface and can easily be deployed alongside
+          multiple One-Wire sensors for sensor fusion.
+          <br><br>
+          The microcontroller (MCU) used is an ESP32 DevKit V1, featuring a dual-core processor
+          with Wi-Fi and Bluetooth capabilities.
+        </p>
+
+        <div class="image-grid">
+          <div class="image-box"><img src=" Radiator Twin Media/FullSetup.png"></div>
+          <div class="image-box"><img src="Radiator Twin Media/SensorSituation.png"></div>
+          <div class="image-box"><img src="Radiator Twin Media/Breadboard.png"></div>
+        </div>
+
+        <div id="imgModal" class="modal">
+          <span class="close-btn">&times;</span>
+          <img id="modalImg" class="modal-content" />
+        </div>
+
+
+        <p>
+          The DS18B20 sensor has been retrofitted to the radiator in a consistent and suitable
+          position to ensure stable readings.
+        </p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="main-wrapper">
+  <section>
+    <div class="timeline-step">
+      <h3>2. Data Acquisition (Transmission)</h3>
+
+      <h4>What the ESP32 is doing</h4>
+      <p>
+        The ESP32 features a built-in deep-sleep mode. Given the application, it isCOUGH
+        is unnecessary to sample every second.
+        The MCU enters a 20-second deep-sleep interval to improve power efficiency.
+      </p>
+
+      <h4>Where the data is going</h4>
+      <p>
+        Using local Wi-Fi connectivity, the MCU uploads data to the
+        <a href="https://thingspeak.mathworks.com/">ThingSpeak API</a>,
+        a free-to-use IoT cloud platform.
+      </p>
+
+      <h4>Arduino IDE Configuration</h4>
+      <pre class="code-block"><p>RadiatorReader.cpp</p>
+<code class="language-c">
+void setup() {
+  /* Doesn't utilise loop(), as reboots after deep-sleep elapsed */
+    btStop();
+    USE_SERIAL.begin(115200);
+    
+    WiFi.mode(WIFI_STA);
+    WiFi.setTxPower(WIFI_POWER_7dBm);
+    
+    WiFi.begin(SSID, LAN_PASSWORD);
+
+    // Wait for WiFi connections
+    int connection_attempts = 0;
+    while (WiFi.status() != WL_CONNECTED)
+    {
+      if (connection_attempts > 30){
+        // WiFi is most-likely turned off. 
+        USE_SERIAL.println("[ESP32]: WiFi not on? Beginning Long-Sleep (10min)");
+        esp_sleep_enable_timer_wakeup(10*(60 * 1000000));
+        esp_deep_sleep_start();
+      }
+      connection_attempts++;
+      delay(1000);
+    } 
+    
+    // Connected To WiFi Signal
+    pinMode(2, OUTPUT);
+    digitalWrite(2, HIGH);
+
+    // ThingSpeak Config/Init
+    ThingSpeak.begin(client);
+
+    // Send Data to ThingSpeak
+    sensors.begin();
+    sensors.requestTemperatures();
+    float val = sensors.getTempCByIndex(0);
+    APIHandle(String(val));
+
+    // Go back to sleep
+    WiFi.disconnect(true);
+    WiFi.mode(WIFI_OFF);
+
+    USE_SERIAL.println("[ESP32]: GoodNight");
+    esp_sleep_enable_timer_wakeup(20 * 1000000); // 20 Seconds
+    esp_deep_sleep_start();
+  }
+
+
+  void APIHandle(String data) {
+    /* Transmit data to ThingSpeak channel */
+    if (WiFi.isConnected()) {
+      ThingSpeak.writeField(ChannelNumber, FieldN, data, API_KEY);
+      delay(100);
+    }
+  }
+</code></pre>
+
+      <img src="Radiator Twin Media/ThingSpeak.png">
+    </div>
+  </section>
+</div>
+
+<div class="main-wrapper">
+  <section>
+    <div class="timeline">
+      <div class="timeline-step">
+        <h3>3. Visualisation</h3>
+        <h4>Digital Twinning</h4>
+        <p>
+          Tools such as Simulink and Unreal Engine 5 enable immersive real-time simulations.
+          By capturing perceivable variables, the physical system can be replicated digitally.
+        </p>
+
+        <h4>Example</h4>
+        <img src="Radiator Twin Media/DigitalTwin.png">
+      </div>
+    </div>
+  </section>
+</div>
+
+
+
+  <div class="main-wrapper">
+    <section>
+      <div class="timeline">
+        <div class="timeline-step">
+          <h3>4. Prediction</h3>
+          <p>
+            <h4> Predictive Maintenance (PdM) </h4>
+            Most individuals I have spoken to regarding downtime at their respective workplace has shook their heads
+            in agreal, regardless of the industrial sector. Any company will improve their productivity & efficiency tremendously,
+            if given the ability to accurately anticipate.
+
+            Therefore, a key motivation for adopting an Industry 4.0 solution is smart maintanence strategies such as PdM.
+            Industrial IoT being a foundational technology, co-insiding with ML algorithms for acheiving 
+            PdM solutions. 
+            <br>
+            <hr>
+          
+          <h4>Predicting </h4>
+          I plan to utilise a simplistic statisical technique such as the Moving Average (MA),
+          to see if I can get an estimation of the Remaining Useful Life (RUL), by looking at 
+          the gradual increase in latency for each instance of a "heat up". 
+          <br>
+          I am currently experimenting as I plan to utilise data-science & ML techniques to estimate
+          the RUL of machinery for my dissertion this year, as part of my undergraduate BSc (hons) Computer Sciences final year project.
+          <br><br>
+          <strong>So still learning! :)</strong>
+          <!-- For this senario, I am simply predicting x. Bare in mind, this is a starting point.
+          I have utilised a moving average (MA) ML model to determine y. -->
+
+          
+          </p>
+          
+        </div>
+    </section>
+  </div>
+
+
+<footer>
+  © <span id="year"></span> Radiator Digital Twin Progress
+</footer>
+
+<script>
+  const modal = document.getElementById("imgModal");
+  const modalImg = document.getElementById("modalImg");
+  const closeBtn = document.querySelector(".close-btn");
+
+  document.querySelectorAll(".image-box img").forEach(img => {
+  img.addEventListener("click", () => {
+      modal.style.display = "flex";
+      modalImg.src = img.src;
+  });
+  });
+
+  closeBtn.addEventListener("click", () => {
+  modal.style.display = "none";
+  });
+
+  modal.addEventListener("click", (e) => {
+  if (e.target === modal) {
+      modal.style.display = "none";
+  }
+  });
+
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
+

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My CS Portfolio</title>
+  <link rel="stylesheet" href="styles/base.css">
+  <style>
+    :root {
+        --bg: #0d1117;
+        --bg-alt: #161b22;
+        --fg: #e6edf3;
+        --accent: #58a6ff;
+        --card-bg: #1c2128;
+        --link-colour: #58a6ff;
+    }
+    
+
+  </style>
+</head>
+<body>
+  <header>
+    <h1>My Projects</h1>
+    <p>Computer Science • Digital Twins • Game Dev • Utilities • Data Science</p>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <section id="about">
+      <h2 class="section-title">About Me</h2>
+      <p>
+        Welcome! 
+        I'm an undergraduate computer scientist at Derby University who loves building tech related things!
+        This portfolio highlights some selected projects and experiments. Appologies in advance as I haven't yet
+        got all components displayed (I haven't documented a lot of my projects yet!). But I will get around to 
+        it in time! I am currently quite busy with my final year modules & project! 🎓📚
+      </p>
+    </section>
+
+    <section id="projects">
+      <h2 class="section-title">Projects</h2>
+
+      <div class="project-grid" id="projectGrid">
+        <!-- Cards added by JS -->
+      </div>
+    </section>
+
+    <section id="contact">
+      <h2 class="section-title">Contact</h2>
+      <p>You can reach me at 
+        <a href="mailto:Patrickwigley2@gmail.com">Patrickwigley2@gmail.com</a>
+        or find me on 
+        <a href="https://github.com/Patrick-Wigley">GitHub</a>
+        or <a href="https://www.linkedin.com/in/patrick-wigley-ba8668182/">LinkedIn</a>.
+      </p>
+    </section>
+  </div>
+
+  <footer>
+    © <span id="year"></span> My Portfolio
+  </footer>
+
+  <script>
+    // Example project data
+    const projects = [
+      {
+        title: "IoT & Robotics",
+        desc: "A simulation framework mirroring real-world physical systems for analytics and prediction.",
+        link: "Projects/IoT.html"
+      },
+      {
+        title: "Games",
+        desc: "2D, 3D, puzzle, local & online games!",
+        link: "Projects/Games.html"
+      },
+      {
+        title: "Utility Toolkit Suite",
+        desc: "Desktop utilities for file automation, productivity boosts, and system diagnostics.",
+        link: "StillUnderConstruction.html"
+      },
+      {
+        title: "University Projects",
+        desc: "Assignments, softwares, util tools I have developed during my time at university",
+        link: "StillUnderConstruction.html"
+      }
+    ];
+
+    const grid = document.getElementById("projectGrid");
+
+    projects.forEach(p => {
+      const card = document.createElement("div");
+      card.setAttribute("card-link", p.link)
+      card.className = "project-card";
+      card.innerHTML = `<h3>${p.title}</h3><p>${p.desc}</p>`;
+      grid.appendChild(card);
+    });
+
+    document.querySelectorAll('.project-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const url = card.getAttribute('card-link');
+      if (url) window.location.href = url;
+      });
+    });
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

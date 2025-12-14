@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Under Construction</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Clean technical font -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #0f1115;
+            --panel: #1a1d24;
+            --steel: #9aa0a6;
+            --warning: #fbbf24;
+            --accent: #38bdf8;
+            --text: #e5e7eb;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Montserrat", sans-serif;
+            background:
+                repeating-linear-gradient(
+                    45deg,
+                    #0f1115,
+                    #0f1115 20px,
+                    #12151c 20px,
+                    #12151c 40px
+                );
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .container {
+            background: linear-gradient(145deg, #1f232c, var(--panel));
+            border-radius: 12px;
+            padding: 3rem 2.5rem;
+            max-width: 640px;
+            width: 90%;
+            border: 2px solid var(--warning);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+            position: relative;
+        }
+
+        /* Hazard stripe header */
+        .container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 12px;
+            background:
+                repeating-linear-gradient(
+                    -45deg,
+                    var(--warning),
+                    var(--warning) 12px,
+                    #111 12px,
+                    #111 24px
+                );
+            border-radius: 10px 10px 0 0;
+        }
+
+        .icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            letter-spacing: 0.05em;
+        }
+
+        p {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #c7cbd1;
+            margin-bottom: 2.5rem;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 0.5rem 1.2rem;
+            border-radius: 999px;
+            background: rgba(251, 191, 36, 0.15);
+            border: 1px solid var(--warning);
+            color: var(--warning);
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            text-decoration: none;
+            padding: 0.7rem 1.4rem;
+            border-radius: 6px;
+            border: 1px solid var(--steel);
+            color: var(--steel);
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+
+        .btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: rgba(56, 189, 248, 0.08);
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <div class="icon">🏗️</div>
+
+    <div class="status">Sorry I Haven't Finished This Yet</div>
+
+    <h1>Page Under Construction</h1>
+
+    <p>
+        This section of the portfolio is currently not finished.
+        I plan to add as many of my projects & experiments eventually!
+        University has me quite busy currently 🎓
+    </p>
+
+    <div class="buttons">
+        <a href="index.html" class="btn">← Back to Home</a>
+    </div>
+</div>
+
+</body>
+</html>
+
+ 

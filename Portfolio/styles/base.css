@@ -1,0 +1,110 @@
+
+
+body {
+    margin: 0;
+    font-family: system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--fg);
+    line-height: 1.6;
+}
+
+header {
+    padding: 2rem;
+    text-align: center;
+    background: var(--bg-alt);
+    border-bottom: 1px solid #222;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5rem;
+}
+
+header p {
+    font-size: 1.1rem;
+    opacity: 0.8;
+}
+
+nav {
+    margin-top: 1rem;
+}
+
+nav a {
+    margin: 0 0.75rem;
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+nav a:hover {
+    text-decoration: underline;
+    
+}
+
+.container {
+    max-width: 1000px;
+    margin: auto;
+    padding: 2rem;
+}
+
+.section-title {
+    font-size: 2rem;
+    margin-top: 3rem;
+    border-left: 4px solid var(--accent);
+    padding-left: 0.75rem;
+}
+
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.project-card {
+    background: var(--card-bg);
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid #2a2f36;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+
+.project-card h3 {
+    margin-top: 0;
+    color: var(--accent);
+}
+
+footer {
+    text-align: center;
+    padding: 2rem;
+    margin-top: 3rem;
+    background: var(--bg-alt);
+    border-top: 1px solid #222;
+    opacity: 0.8;
+}
+
+a,
+a:visited
+a:hover,
+a:active {
+    font-weight: bold;
+    color: var(--link-colour);
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+
+.code-block {
+    background: #1e1e1e;
+    color: #d4d4d4;
+    padding: 1rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    font-family: monospace;
+}
