@@ -181,7 +181,7 @@
         </p>
 
         <div class="image-grid">
-          <div class="image-box"><img src=" Radiator Twin Media/FullSetup.png"></div>
+          <div class="image-box"><img src="Radiator Twin Media/FullSetup.png"></div>
           <div class="image-box"><img src="Radiator Twin Media/SensorSituation.png"></div>
           <div class="image-box"><img src="Radiator Twin Media/Breadboard.png"></div>
         </div>
@@ -189,6 +189,7 @@
         <div id="imgModal" class="modal">
           <span class="close-btn">&times;</span>
           <img id="modalImg" class="modal-content" />
+
         </div>
 
 
@@ -304,8 +305,7 @@ void setup() {
 
 
 
-  <div class="main-wrapper">
-<strong style="color:yellow">Still Documenting this! :)</strong>
+<div class="main-wrapper">
 
     <section>
       <div class="timeline">
@@ -323,9 +323,10 @@ void setup() {
           Detecting a gradually decreasing pattern.
           <br><br>
           For this example, given my current limited setup, I am simply predicting the daily temperature reading. This was achieved harnessing the power 
-          of Seasononal Auto-Regressive Intergrated Moving Average (SARIMA). This is done in python 
-          <a href="https://github.com/Patrick-Wigley/Data-Statistic-Tools/blob/main/RadiatorForecasting/MA.ipynb">Notebook here 📒</a> 
-          For an brief overview here, the highlights of this is:
+          of Seasononal Auto-Regressive Intergrated Moving Average (SARIMA). The entire proceess is documented and demonstrated in 
+          <a href="https://github.com/Patrick-Wigley/Data-Statistic-Tools/blob/main/RadiatorForecasting/MA.ipynb">my notebook here 📒</a> 
+          
+          <br>For an brief overview here, the highlights of this is:
           
           Datapoints was collected from Thingspeak cloud & preprocessed using Pandas dataframes.
           <UL>
@@ -344,31 +345,45 @@ void setup() {
           </UL>
           Boom done. Now the important parts.
           <br>
-          <strong>Firstly, we need to explore our data (EDA)</strong>
-          We need to test if our data is <a href="https://www.geeksforgeeks.org/python/how-to-check-if-time-series-data-is-stationary-with-python/">stationary</a>. 
-          For ARIMA models to work well, the data needs to have no trends nor patterns. But the data needs to have detectable trends to pick up on, contradictory right?
-          well... 
+          <br>
+          <strong>Explore the data (EDA)</strong><br>
+          SARIMA takes 3 "order" parameters: 
+          <ul>
+            <li><strong>p</strong> - How many recent past values directly influence the current</li>
+            <li><strong>d</strong> - Does SARIMA need to apply differencing </li>
+            <li><strong>q</strong> - Moving Average terms</li>
+          </ul>
+          <strong>Determining the d value</strong><br>
+          We need to test if our data once transformed by SARIMA will be <a href="https://www.geeksforgeeks.org/python/how-to-check-if-time-series-data-is-stationary-with-python/">stationary</a>. 
+          For SARIMA models to work well, the training data needs to have no trends nor patterns. Once the model is trained, it'll predicted on the raw data where the trends are. 
+
 
           Fortunately, we can test the data using pre-constructed statistical analytical tools such as Augmented Dickey-Fuller (ADF). 
           <img src="Radiator Twin Media/StationaryTest.png">
           Brilliant, our data is clearly very stationary. This can be interpreted as such because, if the ADF score is <= 1%, it conveys 99% confidence the data is stationary. 
-          There is no signs of trends. And no detected change with seasons. Remember our model is seasonal, SARIMA retains the scope of cyclic data, such as daily or monthly. In this case, 
-          daily radiator temperature fluctations is the goal for prediction. Therefore the seasonal aspect (daily) is fitting. 
+          There is no signs of trends. And no detected change with seasons, perfect for SARIMA to train with. 
+          Therefore, <strong>d = 1</strong>, so SARIMA applies the difference transformation once for us, like we have done here.
 <br>
-<br>
-<br>      
-          Auto-Regessive model takes "terms", these are the amount of lags which will influence the current. 
-          Using the Partial Autocorrelation Function (PACF), we can see exactly how many previous lags have effect on the current lag.
+<br>  
+          <strong>Determining the p value</strong><br>
+          Auto-Regessive model takes "terms", these are the amount of lags which will influence the current e.g. AR(n) where n is the 
+          number of highly infleuncial lags. 
+          Using the Partial Autocorrelation Function (PACF), we can see exactly how many previous lags have most effect on the current lag.
           This can be determined by reading the number of inital spikes: 
           <img src="Radiator Twin Media/PACF.png">
-          The PACF graph tells us that there are 3 significant spikes before the lags fall back into their mean range.
-
+          The PACF graph tells us that there are <strong>3 significant spikes</strong> before the lags fall back into their mean range. Therefore, 
+          <strong>p = 3</strong>.
 <br>
 <br>
-
-
-<strong>Results</strong><br>
-I have produced two graphs in Matplotlib, 1st graph shows the difference between datapoints from the predicted & truth. The deviations from 0 
+          <strong>Seasonal Aspect</strong><br>
+          The dataframe has been resampled to strictly 10 minute interval - Therefore, a season (day) is:
+          <img src="Radiator Twin Media/SeasonalDetermination.png">
+          where Minutes in day = 1440 & Sample Interval = 10. This s value is fundemental for the seasonal order parameter in our
+          SARIMA model
+<br>
+<br>
+<strong>Results with trained model</strong><br>
+The graph below shows the difference between datapoints from the predicted & truth. The deviations from 0 
 are indicative of incorrect values. 
 <img src="Radiator Twin Media/AccuracyFromTruth.png">
 You can see the prediction was quite close in some areas, especially given the 
@@ -376,13 +391,14 @@ unpredictable nature of a generic household radiator. The thermostat depends on 
 environmental conditions.
 
 <br><br>
-<strong>Here is the exciting part! </strong>
-<img src="Radiator Twin Media/ForecastComparison.png">
-<p style="text-align: center; font-style: italic;">Figure 3. Prediction & Truth Comparison</p>
-Close right?!
+<strong>Here is the exciting part! </strong><br>
 
-<code class="language-python"><pre>
-</pre></code>
+<img src="Radiator Twin Media/ForecastComparison.png">
+<!-- <p style="text-align: center; font-style: italic;">Figure 3. Prediction & Truth Comparison</p> -->
+Close call right?! - This has been fun & a brilliant stepping stone for me, into the world of predictive IoT
+
+<!-- <code class="language-python"><pre>
+</pre></code> -->
 
 
 
@@ -417,6 +433,7 @@ Close right?!
   img.addEventListener("click", () => {
       modal.style.display = "flex";
       modalImg.src = img.src;
+
   });
   });
 
