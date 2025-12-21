@@ -305,31 +305,94 @@ void setup() {
 
 
   <div class="main-wrapper">
+<strong style="color:yellow">Still Documenting this! :)</strong>
+
     <section>
       <div class="timeline">
         <div class="timeline-step">
           <h3>4. Prediction</h3>
           <p>
-            <h4> Predictive Maintenance (PdM) </h4>
-            Most individuals I have spoken to regarding downtime at their respective workplace has shook their heads
-            in agreal, regardless of the industrial sector. Any company will improve their productivity & efficiency tremendously,
-            if given the ability to accurately anticipate.
+          Most individuals I have spoken to regarding downtime at their respective workplace has shook their heads
+          in agreal, regardless of the industrial sector. Any company will improve their productivity & efficiency tremendously,
+          if given the ability to accurately anticipate.
 
-            Therefore, a key motivation for adopting an Industry 4.0 solution is smart maintanence strategies such as PdM.
-            Industrial IoT being a foundational technology, co-insiding with ML algorithms for acheiving 
-            PdM solutions. 
-            <br>
-            <hr>
+          Therefore, a key motivation for adopting an Industry 4.0 solution is smart maintanence strategies such as PdM.
+          Industrial IoT being a foundational technology, co-insiding with ML algorithms for acheiving Predictive Maintenance (PdM). PdM is the concept behind
+          estimating the Remaining Useful Life (RUL), of a thing. In this scenario, the thing being a radiator & heating, if I could access when exactly the heating 
+          is turned on then theoretically, I could take each instance of a heat-up cycle and compare the heat-up latency (from coldest to warmest reached temperature). 
+          Detecting a gradually decreasing pattern.
+          <br><br>
+          For this example, given my current limited setup, I am simply predicting the daily temperature reading. This was achieved harnessing the power 
+          of Seasononal Auto-Regressive Intergrated Moving Average (SARIMA). This is done in python 
+          <a href="https://github.com/Patrick-Wigley/Data-Statistic-Tools/blob/main/RadiatorForecasting/MA.ipynb">Notebook here 📒</a> 
+          For an brief overview here, the highlights of this is:
           
-          <h4>Predicting </h4>
-          I plan to utilise a simplistic statisical technique such as the Moving Average (MA),
+          Datapoints was collected from Thingspeak cloud & preprocessed using Pandas dataframes.
+          <UL>
+            <li>
+              Removing incorrect initial OneWire reading on power on (Reads 85) 
+            </li>
+            <li>
+              Removing extreme errorneous data
+            </li>
+            <li>
+              Resampling datapoints into strict 10min intervals, using <a href="https://www.geeksforgeeks.org/python/python-pandas-dataframe-resample/">pandas resample method</a> with mean interpolation
+            </li>
+            <li>
+              Removing NaNs & Null values
+            </li>
+          </UL>
+          Boom done. Now the important parts.
+          <br>
+          <strong>Firstly, we need to explore our data (EDA)</strong>
+          We need to test if our data is <a href="https://www.geeksforgeeks.org/python/how-to-check-if-time-series-data-is-stationary-with-python/">stationary</a>. 
+          For ARIMA models to work well, the data needs to have no trends nor patterns. But the data needs to have detectable trends to pick up on, contradictory right?
+          well... 
+
+          Fortunately, we can test the data using pre-constructed statistical analytical tools such as Augmented Dickey-Fuller (ADF). 
+          <img src="Radiator Twin Media/StationaryTest.png">
+          Brilliant, our data is clearly very stationary. This can be interpreted as such because, if the ADF score is <= 1%, it conveys 99% confidence the data is stationary. 
+          There is no signs of trends. And no detected change with seasons. Remember our model is seasonal, SARIMA retains the scope of cyclic data, such as daily or monthly. In this case, 
+          daily radiator temperature fluctations is the goal for prediction. Therefore the seasonal aspect (daily) is fitting. 
+<br>
+<br>
+<br>      
+          Auto-Regessive model takes "terms", these are the amount of lags which will influence the current. 
+          Using the Partial Autocorrelation Function (PACF), we can see exactly how many previous lags have effect on the current lag.
+          This can be determined by reading the number of inital spikes: 
+          <img src="Radiator Twin Media/PACF.png">
+          The PACF graph tells us that there are 3 significant spikes before the lags fall back into their mean range.
+
+<br>
+<br>
+
+
+<strong>Results</strong><br>
+I have produced two graphs in Matplotlib, 1st graph shows the difference between datapoints from the predicted & truth. The deviations from 0 
+are indicative of incorrect values. 
+<img src="Radiator Twin Media/AccuracyFromTruth.png">
+You can see the prediction was quite close in some areas, especially given the 
+unpredictable nature of a generic household radiator. The thermostat depends on multiple factors such as arbitrary human intervention, boiler temperature regulator & 
+environmental conditions.
+
+<br><br>
+<strong>Here is the exciting part! </strong>
+<img src="Radiator Twin Media/ForecastComparison.png">
+<p style="text-align: center; font-style: italic;">Figure 3. Prediction & Truth Comparison</p>
+Close right?!
+
+<code class="language-python"><pre>
+</pre></code>
+
+
+
+          <!-- I plan to utilise a simplistic statisical technique such as the Moving Average (MA),
           to see if I can get an estimation of the Remaining Useful Life (RUL), by looking at 
           the gradual increase in latency for each instance of a "heat up". 
           <br>
           I am currently experimenting as I plan to utilise data-science & ML techniques to estimate
-          the RUL of machinery for my dissertion this year, as part of my undergraduate BSc (hons) Computer Sciences final year project.
+          the RUL of machinery for my dissertion this year, as part of my undergraduate BSc (hons) Computer Sciences final year project. -->
           <br><br>
-          <strong>So still learning! :)</strong>
           <!-- For this senario, I am simply predicting x. Bare in mind, this is a starting point.
           I have utilised a moving average (MA) ML model to determine y. -->
 
