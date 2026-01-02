@@ -4,12 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Automotive Vibration Monitoring — IoT Project</title>
+  
+<link rel="stylesheet" href="../../styles/imgs.css">
+<link rel="stylesheet" href="../../styles/base.css">
 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet"/>
 <!-- Code Syntax Highlighting Library - Really cool ! -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+
 
 <style>
 :root {
@@ -62,6 +66,32 @@ header p{
   overflow:hidden;
 }
 
+img{
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 1rem auto;
+  /* max-width:100%;
+  border-radius:10px;
+  display:block;
+  margin:1rem auto;
+  box-shadow:0 8px 20px rgba(0,0,0,0.4); */
+}
+
+.image-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:1rem;
+  /* margin-top:1rem; */
+}
+
+.image-box img {
+    width: 100%;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+
+
 .section-title{
   font-size:1.8rem;
   margin-top:2rem;
@@ -98,20 +128,7 @@ header p{
   font-size:1.35rem;
 }
 
-.image-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:1rem;
-  margin-top:1rem;
-}
 
-img{
-  max-width:100%;
-  border-radius:10px;
-  display:block;
-  margin:1rem auto;
-  box-shadow:0 8px 20px rgba(0,0,0,0.4);
-}
 
 .code-block p{
   text-align:center;
@@ -163,11 +180,12 @@ footer{
             Firstly, I began prototyping the solution on a breadboard. Both the SD & Accelerometer components use their own communication protocol - An the esp32 supports both with designated 
             pins for certain busses. 
             
-            
-            <div class="image-grid">
-                <div class="image-box"><img src="Car Media/ESP32Pinout.png"></div>
+            <div class="imgArea">
+              <div class="image-grid">
+                <img style="border-radius: 8px;" src="Car Media/ESP32Pinout.png" data-inform="">
+              </div>
+              <p style="font-style: italic;">Figure 1. Reference sheet for Elegoo ESP32 pinouts</p>
             </div>
-            <p style="font-style: italic;">Figure 1. Reference sheet for Elegoo ESP32 pinouts</p>
 
           <br><strong>SD Card Module</strong><br>
           SD card module allows for synchronous reading & writing into a MicroSD card. it takes a 5v powers supply and the esp32 can supply a stable 5v through the VIN pin. 
@@ -324,10 +342,6 @@ void SD_Stats() {
 </div>
 
 
-
-
-
-
 <div class="main-wrapper">
   <section>
     <div class="timeline">
@@ -335,51 +349,49 @@ void SD_Stats() {
         <h3>2. Prototyping </h3>
         <p>
          <br><strong>Breadboard Configuration</strong><br>
-         It is safe and smart to test and devise a suitable configuration for the components initially before jumping straight onto the 
-         prototype board ofcourse! So, I pulled out my breadboard and fitted the componets, connecting SPI & I2C pinouts to the corresponding 
+         It is safe to test and devise a suitable configuration for the components initially before jumping straight onto the 
+         proto board. So, I pulled out my breadboard and fitted the componets, connecting SPI & I2C pinouts to the corresponding 
          pins on the esp32 <p style="font-style: oblique;">Note it is not necessary to use some of these pins, although for standardisation I used them. 
-         You could use D33 with MOSI for example.</p>
+         You could use D33 with MOSI for example, if your MOSI pin was faulty.</p>
          
-        <div class="image-grid">
-          <div class="image-box"><img src=""></div>
-          <div class="image-box"><img src=""></div>
-          <div class="image-box"><img src=""></div>
+         Inititally I was using an SD (not microSD) module. Hense the adapter. This was later swapped for a <a href="https://www.amazon.co.uk/dp/B07DK5K6LJ?ref=ppx_yo2ov_dt_b_fed_asin_title">MicroSD card module</a>
+        <div class="imgArea">
+          <div class="image-grid">
+           <div class="image-box"><img src="Car Media/Breadboard.JPG"></div>
+          </div>
+          <p style="font-style: italic;">Figure 2. Breadboard Wiring & Debugging</p>
         </div>
         
-        <p style="font-style: italic;">Figures x,y,z. Breadboard Wiring</p>
         </p>
-        <br><strong>Uploaded Compiled Program & Checking SD</strong><br>
+        Compiling & Uploading VibrationCapture.cpp works as expected, populating a CSV file on the microSD card with X,Y,Z acceleration records.
 
 
-        Right! It works, 
+        <br><br><br><strong>Working on the prototype board</strong><br>
+        From my very little experience with soldering so far, I have learned it takes a lot of patients & care. Ofcourse, concentraction & accuracy of wiring is imperative, 
+        but spending extra time doing tasks neatly & with care goes a long way. 
+        <br><br>
+        I have got some 22AWG insulated wire, perfect for small electronic components, some proto PCB boards with non connected through-holes (think this is also called a vector board?), plug and play female connectors for interchangeability & resuse, some flux & lead-free solder,
+        a desolder pump & a soldering iron. 360C works well for my setup, with the sharp tip for tight soldering joints (connecting wires on neighbouring through-holes) & the flat-headed tip for soldering 
+        header pins to boards.
+        <br><br>
 
-        <br><strong>Working on the prototype board</strong><br>
-        My first attempt was... not great. Other than some simple LED circuits for practice, this is my first time soldering. I have got myself 
-        some 22AWG insulated wire, perfect for small electronic components, some prototype PCB boards with through-holes, some flux & lead-free solder,
-        a desolder pump & a soldering iron. I set my iron to 360C and began desoldering the header-pins of my components. Long-story short, the first attempt 
-        didn't work :( My microcontroller would register the SD card module. Definitely took the wrong approach with this. I am going to put my failure on blast here,
-        viewer discretion is adviced. 
-        
-        <div class="image-grid">
-          <div class="image-box"><img src=""></div>
-          <div class="image-box"><img src=""></div>
-          <div class="image-box"><img src=""></div>
+        After basic LED cicuitry practice, a few failed revisions and research for helpful tips & tricks, I got it right in the end. Tediosuly, a decent amount of time was
+        spent making the wiring as reasonably neat as I possible, ensuring no cross talk. And best of all, it works! My multimeter displaying strong continuity 
+        for each connection was very satisfiying. 
+        <div class="imgArea">
+          <div class="image-grid">
+            <div class="image-box"><img src="Car Media/PCBEmpty.JPG"></div>
+            <div class="image-box"><img src="Car Media/PCBPopulated.JPG"></div>
+          </div>
+          <p style="font-style: italic;">Figures 3 & 4. Final PCB Configuration</p>
+
         </div>
-        
-        <p style="font-style: italic;">Figure n. First Attempt</p>
-        
-
-        But I learned from my mistakes, after some more practice and research I knew exactly how to do this the right way. I spent a while making the wiring as reasonably neat as 
-        I could, ensuring no cross talk. And best of all, it works! I was so relieved when the multimeter displayed strong continuity for each connection.
-        <img src="Car Media/FinalPCB1.png">
-        <p style="font-style: italic;">Figure n. Final PCB</p>
+        <strong style="color:yellow">Next up is to print a water proof enclosure & do something meaningful & impactful with the data,
+          I want to make a digital twin - Using Matlab Simulink for conditional based monitoring 
+        </strong>
         
         
-        <div id="imgModal" class="modal">
-            <span class="close-btn">&times;</span>
-            <img id="modalImg" class="modal-content" />
-        </div>
-     </div>
+      </div>
     </div>
   </section>
 </div>
@@ -387,35 +399,69 @@ void SD_Stats() {
 <div class="main-wrapper">
   <section>
     <div class="timeline">
-        <div class="timeline-step"><h3>3. Enclosure </h3></div>
-        <p>
-            Witmotions Accelerometer & Digital Matters Hawk-4G are industrial standard containment with strong ingress ratings (IP64+). It is imperative to waterproof & dustproof 
+      <div class="timeline-step"><h3>3. Enclosure </h3></div>
+      <p>
+        Witmotions Accelerometer & Digital Matters Hawk-4G are industrial standard containment with strong ingress ratings (IP64+). It is imperative to waterproof & dustproof 
             the electronics. So, I did some internet digging and found a free 3D printable electronics enclousure.  
-        </p>
-    </div>
+          </p>
+        </div>
 </section>
 </div>
 
 
 
 <footer>
-  © <span id="year"></span> Radiator Digital Twin Progress
+  © <span id="year"></span> Car Conditional Monitoring
 </footer>
 
+
+
+
+<div id="imgModal" class="modal">
+  <span class="close-btn">&times;</span>
+  <img id="modalImg" class="modal-content" />
+</div>
 <script>
   const modal = document.getElementById("imgModal");
   const modalImg = document.getElementById("modalImg");
   const closeBtn = document.querySelector(".close-btn");
-
+  
   document.querySelectorAll(".image-box img").forEach(img => {
-  img.addEventListener("click", () => {
-      modal.style.display = "flex";
-      modalImg.src = img.src;
-  });
+  console.log("Image found: " + img.getAttribute("data-responsive"));
+    img.addEventListener("click", () => {
+        modal.style.display = "flex";
+        modalImg.src = img.src;
+    });
   });
 
+  document.querySelectorAll(".imgArea").forEach(imagesArea => {
+    const imgText = imagesArea.querySelector("p"); 
+    
+    imgText.style.alignContent = ""
+    console.log(imgText.innerText);
+    imagesArea.querySelectorAll("img").forEach(img => {
+      console.log("added")
+      img.addEventListener("mouseover", () => {
+        imgText.style.textDecoration = "underline";
+      });
+      img.addEventListener("mouseleave", () => {
+        console.log("off");
+        imgText.style.textDecoration = "";
+      })
+    });
+
+    inform = imagesArea.getAttribute("data-inform");
+    if (inform != null) {
+      console.log("Setting inform to: " + imagesArea.inform);
+      imagesArea.addEventListener("hover", () => {
+          text.style.display = "flex"; 
+      });
+    }
+  });
+  
+    
   closeBtn.addEventListener("click", () => {
-  modal.style.display = "none";
+      modal.style.display = "none";
   });
 
   modal.addEventListener("click", (e) => {
