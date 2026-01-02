@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Automotive Vibration Monitoring — IoT Project</title>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet"/>
+<!-- Code Syntax Highlighting Library - Really cool ! -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+
+<style>
+:root {
+  --bg:#0b0d12;
+  --panel:#131722;
+  --text:#e6ebff;
+  --accent:#3af0ff;
+  --accent-soft:#88f7ff;
+  --card:#1a2030;
+}
+
+body{
+  margin:0;
+  font-family:system-ui, sans-serif;
+  background:radial-gradient(circle at top, #14203d, var(--bg));
+  color:var(--text);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+header{
+  width:100%;
+  padding:2rem 0;
+  background:var(--panel);
+  border-bottom:2px solid var(--accent);
+  text-align:center;
+}
+
+header h1{
+  margin:0;
+  font-size:2.4rem;
+  color:var(--accent);
+}
+
+header p{
+  margin-top:0.4rem;
+  opacity:0.9;
+}
+
+.main-wrapper{
+  width:100%;
+  max-width:900px;
+  margin:2rem auto;
+  padding:1.5rem;
+  background:var(--panel);
+  border-radius:16px;
+  border:1px solid #242c3b;
+  box-shadow:0 8px 40px rgba(0,0,0,0.5);
+  overflow:hidden;
+}
+
+.section-title{
+  font-size:1.8rem;
+  margin-top:2rem;
+  border-left:5px solid var(--accent);
+  padding-left:0.8rem;
+}
+
+.timeline{
+  margin-top:1.2rem;
+  border-left:3px solid var(--accent);
+  padding-left:1.5rem;
+}
+
+.timeline-step{
+  margin-bottom:2rem;
+  position:relative;
+}
+
+.timeline-step::before{
+  content:"";
+  position:absolute;
+  left:-1.1rem;
+  top:0.3rem;
+  width:14px;
+  height:14px;
+  background:var(--accent);
+  border-radius:50%;
+  box-shadow:0 0 8px var(--accent);
+}
+
+.timeline-step h3{
+  margin:0;
+  color:var(--accent-soft);
+  font-size:1.35rem;
+}
+
+.image-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:1rem;
+  margin-top:1rem;
+}
+
+img{
+  max-width:100%;
+  border-radius:10px;
+  display:block;
+  margin:1rem auto;
+  box-shadow:0 8px 20px rgba(0,0,0,0.4);
+}
+
+.code-block p{
+  text-align:center;
+  text-decoration:underline;
+}
+
+footer{
+  margin:3rem 0 1rem;
+  text-align:center;
+  opacity:0.7;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>Automotive Vibration Monitoring</h1>
+  <p>Capturing & analysing real-world vibration data from a car using accelerometers</p>
+</header>
+
+<div class="main-wrapper">
+<section>
+  <h2 class="section-title">Overview</h2>
+  <p>
+    In this project I explore the use of a triaxial (3 axis) accelerometer, and an SD card module for storing large, streaming data locally. 
+    This project was insired by my final year project, where I look into alternative off-the-self industrial vibration sensors (WitMotion) and a
+    advanced datalogger (Digital Matter Hawk-4G). Moreover, as a quick project the christmas holiday I have made my own vibration datalogger, does it 
+    compare with the industrial stuff??
+    <br><br>
+    What information can you infer from collecting vibration data on a car? :)
+  </p>
+</section>
+</div>
+
+
+    
+<div class="main-wrapper">
+  <section>
+    <div class="timeline">
+      <div class="timeline-step">
+        <h3>1. Setup</h3>
+        <p>
+            For this project, I am using <a href="https://www.adafruit.com/product/2019?srsltid=AfmBOoqEaatU9riDt-EosiE7PdE5uAXyZsVHp68eLAa8y6VZAJ0RBYv9">Adafruits Triaxial Accelerometer</a>,
+            an MicroSD card read/write module & an Elegoo ESP32 Dev Board. 
+            <br><br>
+            Lets get into it :)
+            <br>
+            Firstly, I began prototyping the solution on a breadboard. Both the SD & Accelerometer components use their own communication protocol - An the esp32 supports both with designated 
+            pins for certain busses. 
+            
+            
+            <div class="image-grid">
+                <div class="image-box"><img src="Car Media/ESP32Pinout.png"></div>
+            </div>
+            <p style="font-style: italic;">Figure 1. Reference sheet for Elegoo ESP32 pinouts</p>
+
+          <br><strong>SD Card Module</strong><br>
+          SD card module allows for synchronous reading & writing into a MicroSD card. it takes a 5v powers supply and the esp32 can supply a stable 5v through the VIN pin. 
+          The module communicates via Serial Peripheral Interface (SPI) protocol, 
+          this uses 4 busses: 
+          <ul>
+            <li>SCK - Clock</li>
+            <li>CS - Chip Selector</li>
+            <li>MOSI - Master Out Slave In (on ESP is Controller Out Peripheral In or COPI)</li>
+            <li>MISO - Master In Slave Out (on ESP is Controller In Peripheral Out or CIPO)</li>
+          </ul>
+          
+          
+          <br><strong>Accelerometer Module</strong><br>
+          Adafruit have developed a brilliant 3-axis accelerometer capable of measuring frequencies from 1.56Hz - 800Hz depending on configuration of Output Data Rate (ODR) in code.
+          The module runs at 3v with an on board regulator, therefore we can conveniently supply 3.3v straight from the esp. 
+          This module communications via I²C which supports multiple linked components. Therefore, you could use sensor fusion to increase accuracy & robustness of the readings. For this 
+          project I have just stuck with the single vib sensor. The I²C communication busses used for this project are busses are:
+          <ul>
+            <li>SDA - Serial Data</li>
+            <li>SCL - Serial Clock</li>
+          </ul>          
+          
+
+          <br><strong>Programming</strong><br>
+          There are prebuilt libraries for both SPI and I²C communications - in fact Adafruit provide an opensourced library stored in the "Adafruit_MMA8451.h" header file. 
+          And Arduino provide an opensourced SD library for SPI communication handle with SD peripherals,
+          the developer just needs to instantiate an object of the SPIClass, configure it and use the static "SD" singleton class, passing the configuration SPIClass in and 
+          done pretty much. Takes the fun of coding away!
+          <br>
+          As regards to the logic, I simply iterate through all the existing files in SD to get the most recent iteration (n) and create a new file naming it iteration n+1 to 
+          keep track during this run. And sending a high digital signal to pin 2 on the esp lights up the onboard blue LED as a debug/informative signal, for if modules aren't 
+          being detected (the LED lit up alot during the soldering part of this project whoops) or if the SD card is full.
+<pre class="code-block"><p>VibrationCapture.cpp</p>
+<code class="language-c">
+/*
+  Capturing vibration data & storing into SD card 
+  Using:
+  - Adafruit MMA8451  (I2C Comm)
+  - MH-SD Card Module (SPI Comm)
+*/
+
+/* Pins & Consts */
+#define P_ErrSig 2
+#define DEBUG 1
+
+/* Includes */
+#include &lt;Wire.h&gt;
+#include &lt;Adafruit_MMA8451.h&gt;
+#include &lt;Adafruit_Sensor.h&gt;
+
+#include &lt;SPI.h&gt;
+#include &lt;SD.h&gt;
+
+/* Static Vars */ 
+Adafruit_MMA8451 mma = Adafruit_MMA8451();
+
+SPIClass* vspi;
+// 1MHz, MSB, MODE0 
+SPISettings spiConfiguration(1000000, MSBFIRST, SPI_MODE0);
+const String FILE_PREFIX = "/VR";
+String file_name;
+
+#define MISO_ALT 33
+
+void setup() {
+  Serial.begin(115200);
+  if (DEBUG) delay(5000);  
+  pinMode(P_ErrSig, OUTPUT);
+
+  vspi = new SPIClass(VSPI);
+  vspi->begin(SCK, MISO, MOSI,  SS);
+
+
+  /* Testing Configurations */
+  if (!mma.begin()) {
+    // Keep err sig pulled high - Somethings not connected correctly or broken.
+    Serial.println("Failed to begin accelerometer"); 
+    digitalWrite(P_ErrSig, HIGH); 
+    while(1);
+  }
+  while (!SD.begin(SS, *vspi, 1000000)) {
+    // Wait for SD card to be inserted
+    Serial.println("Failed to begin SD module (Is the card plugged in? You silly. Or the boards possibly broke from moisture in the air, you silly)");
+    digitalWrite(P_ErrSig, HIGH); 
+    delay(500);
+    digitalWrite(P_ErrSig, LOW);
+    delay(500);
+  }
+  // Else, everything is good :)
+  
+
+  /* Setup Accel */
+  mma.setRange(MMA8451_RANGE_2_G);
+  mma.setDataRate(MMA8451_DATARATE_100_HZ); //MMA8451_DATARATE_50_HZ
+
+
+  /* Setup SD */
+  // Get new files name (Prefix + str(files_count+1))
+  unsigned int counter = 1;
+  while (SD.exists(FILE_PREFIX + String(counter))) counter++;
+  file_name = FILE_PREFIX + String(counter);
+
+
+  /* Operative Information */ 
+  if (DEBUG) {
+    Serial.println(); Serial.println("Monitoring At");
+    Serial.print("Range = "); Serial.print(2 << mma.getRange()); Serial.println("G");
+    Serial.print("Using datarate option "); Serial.print(mma.getDataRate()); Serial.println(" - 100Hz");  // Hard coded - dont want to make a lookup table for the datarate codes.
+  
+    SD_Stats();
+    Serial.println(); Serial.print("Storing triaxial acceleration data into "); Serial.println(file_name);
+  }
+}
+
+void loop() {
+  mma.read();
+  sensors_event_t event; 
+  mma.getEvent(&event);
+
+  // Write to file
+  File sd_file = SD.open(file_name, FILE_APPEND, true);
+  if (sd_file) {
+    String data = String(event.acceleration.x) + "," + String(event.acceleration.y) + "," + String(event.acceleration.z);
+    sd_file.println(data);
+    sd_file.close();
+  }
+  if (SD.usedBytes() > ((SD.totalBytes()-100))) // Computationally quicker then percentage
+    SD_full();
+
+}
+
+void SD_full(){
+  digitalWrite(P_ErrSig, HIGH);
+  if (DEBUG) Serial.println("SD FULL");
+  while (1);
+}
+
+void SD_Stats() {
+  Serial.println("-=-=--= SD Details =--=-=- "); 
+  Serial.print("Card Size: "); Serial.print(SD.cardSize());     Serial.print(" ("); Serial.print(SD.cardSize() / 1000000000); Serial.println("GB)");
+  Serial.print("Total Bytes: "); Serial.print(SD.totalBytes()); Serial.print(" ("); Serial.print(SD.totalBytes() / 1000000000); Serial.println("GB)");
+  Serial.print("Used Bytes: "); Serial.print(SD.usedBytes());   Serial.print(" ("); Serial.print(SD.usedBytes() / 1000000000); Serial.println("GB)");
+  Serial.println();
+  Serial.print("Card Type: "); Serial.println(SD.cardType());
+  Serial.print("Num of Sectors: "); Serial.println(SD.numSectors());
+  Serial.print("Sector Size: "); Serial.println(SD.sectorSize());
+  Serial.println("-=-=--= ----------------- =--=-=-"); 
+}
+</code></pre>        
+      </div>
+    </div>
+  </section>
+</div>
+
+
+
+
+
+
+<div class="main-wrapper">
+  <section>
+    <div class="timeline">
+      <div class="timeline-step">
+        <h3>2. Prototyping </h3>
+        <p>
+         <br><strong>Breadboard Configuration</strong><br>
+         It is safe and smart to test and devise a suitable configuration for the components initially before jumping straight onto the 
+         prototype board ofcourse! So, I pulled out my breadboard and fitted the componets, connecting SPI & I2C pinouts to the corresponding 
+         pins on the esp32 <p style="font-style: oblique;">Note it is not necessary to use some of these pins, although for standardisation I used them. 
+         You could use D33 with MOSI for example.</p>
+         
+        <div class="image-grid">
+          <div class="image-box"><img src=""></div>
+          <div class="image-box"><img src=""></div>
+          <div class="image-box"><img src=""></div>
+        </div>
+        
+        <p style="font-style: italic;">Figures x,y,z. Breadboard Wiring</p>
+        </p>
+        <br><strong>Uploaded Compiled Program & Checking SD</strong><br>
+
+
+        Right! It works, 
+
+        <br><strong>Working on the prototype board</strong><br>
+        My first attempt was... not great. Other than some simple LED circuits for practice, this is my first time soldering. I have got myself 
+        some 22AWG insulated wire, perfect for small electronic components, some prototype PCB boards with through-holes, some flux & lead-free solder,
+        a desolder pump & a soldering iron. I set my iron to 360C and began desoldering the header-pins of my components. Long-story short, the first attempt 
+        didn't work :( My microcontroller would register the SD card module. Definitely took the wrong approach with this. I am going to put my failure on blast here,
+        viewer discretion is adviced. 
+        
+        <div class="image-grid">
+          <div class="image-box"><img src=""></div>
+          <div class="image-box"><img src=""></div>
+          <div class="image-box"><img src=""></div>
+        </div>
+        
+        <p style="font-style: italic;">Figure n. First Attempt</p>
+        
+
+        But I learned from my mistakes, after some more practice and research I knew exactly how to do this the right way. I spent a while making the wiring as reasonably neat as 
+        I could, ensuring no cross talk. And best of all, it works! I was so relieved when the multimeter displayed strong continuity for each connection.
+        <img src="Car Media/FinalPCB1.png">
+        <p style="font-style: italic;">Figure n. Final PCB</p>
+        
+        
+        <div id="imgModal" class="modal">
+            <span class="close-btn">&times;</span>
+            <img id="modalImg" class="modal-content" />
+        </div>
+     </div>
+    </div>
+  </section>
+</div>
+
+<div class="main-wrapper">
+  <section>
+    <div class="timeline">
+        <div class="timeline-step"><h3>3. Enclosure </h3></div>
+        <p>
+            Witmotions Accelerometer & Digital Matters Hawk-4G are industrial standard containment with strong ingress ratings (IP64+). It is imperative to waterproof & dustproof 
+            the electronics. So, I did some internet digging and found a free 3D printable electronics enclousure.  
+        </p>
+    </div>
+</section>
+</div>
+
+
+
+<footer>
+  © <span id="year"></span> Radiator Digital Twin Progress
+</footer>
+
+<script>
+  const modal = document.getElementById("imgModal");
+  const modalImg = document.getElementById("modalImg");
+  const closeBtn = document.querySelector(".close-btn");
+
+  document.querySelectorAll(".image-box img").forEach(img => {
+  img.addEventListener("click", () => {
+      modal.style.display = "flex";
+      modalImg.src = img.src;
+  });
+  });
+
+  closeBtn.addEventListener("click", () => {
+  modal.style.display = "none";
+  });
+
+  modal.addEventListener("click", (e) => {
+  if (e.target === modal) {
+      modal.style.display = "none";
+  }
+  });
+
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
+
