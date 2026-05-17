@@ -118,6 +118,29 @@
             color: #cbd5e1;
         }
 
+         .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            text-decoration: none;
+            padding: 0.7rem 1.4rem;
+            border-radius: 6px;
+            border: 1px solid var(--steel);
+            color: var(--steel);
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+
+        .btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: rgba(56, 189, 248, 0.08);
+        }
+
         .tag {
             display: inline-block;
             margin-top: 1.2rem;
@@ -148,6 +171,8 @@
 </header>
 
 <main>
+
+
     <div class="grid">
 
         <a href="IoT/Radiator Twin.html" class="card">
@@ -171,6 +196,11 @@
         </a>
     </div>
 </main>
+
+
+    <div class="buttons">
+        <a href="/" class="btn">← Back to Home</a>
+    </div>
 
 <footer>
     © 2025 · IoT & Robotics Portfolio

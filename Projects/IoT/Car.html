@@ -12,117 +12,140 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
 
 <style>
-:root {
-  --bg:#0b0d12;
-  --panel:#131722;
-  --text:#e6ebff;
-  --accent:#3af0ff;
-  --accent-soft:#88f7ff;
-  --card:#1a2030;
-}
+  :root {
+    --bg:#0b0d12;
+    --panel:#131722;
+    --text:#e6ebff;
+    --accent:#3af0ff;
+    --accent-soft:#88f7ff;
+    --card:#1a2030;
+  }
 
-body{
-  margin:0;
-  font-family:system-ui, sans-serif;
-  background:radial-gradient(circle at top, #14203d, var(--bg));
-  color:var(--text);
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-}
+  body{
+    margin:0;
+    font-family:system-ui, sans-serif;
+    background:radial-gradient(circle at top, #14203d, var(--bg));
+    color:var(--text);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+  }
 
-header{
-  width:100%;
-  padding:2rem 0;
-  background:var(--panel);
-  border-bottom:2px solid var(--accent);
-  text-align:center;
-}
+  header{
+    width:100%;
+    padding:2rem 0;
+    background:var(--panel);
+    border-bottom:2px solid var(--accent);
+    text-align:center;
+  }
 
-header h1{
-  margin:0;
-  font-size:2.4rem;
-  color:var(--accent);
-}
+  header h1{
+    margin:0;
+    font-size:2.4rem;
+    color:var(--accent);
+  }
 
-header p{
-  margin-top:0.4rem;
-  opacity:0.9;
-}
+  header p{
+    margin-top:0.4rem;
+    opacity:0.9;
+  }
 
-.main-wrapper{
-  width:100%;
-  max-width:900px;
-  margin:2rem auto;
-  padding:1.5rem;
-  background:var(--panel);
-  border-radius:16px;
-  border:1px solid #242c3b;
-  box-shadow:0 8px 40px rgba(0,0,0,0.5);
-  overflow:hidden;
-}
+  .main-wrapper{
+    width:100%;
+    max-width:900px;
+    margin:2rem auto;
+    padding:1.5rem;
+    background:var(--panel);
+    border-radius:16px;
+    border:1px solid #242c3b;
+    box-shadow:0 8px 40px rgba(0,0,0,0.5);
+    overflow:hidden;
+  }
 
-.section-title{
-  font-size:1.8rem;
-  margin-top:2rem;
-  border-left:5px solid var(--accent);
-  padding-left:0.8rem;
-}
+  .section-title{
+    font-size:1.8rem;
+    margin-top:2rem;
+    border-left:5px solid var(--accent);
+    padding-left:0.8rem;
+  }
 
-.timeline{
-  margin-top:1.2rem;
-  border-left:3px solid var(--accent);
-  padding-left:1.5rem;
-}
+  .timeline{
+    margin-top:1.2rem;
+    border-left:3px solid var(--accent);
+    padding-left:1.5rem;
+  }
 
-.timeline-step{
-  margin-bottom:2rem;
-  position:relative;
-}
+  .timeline-step{
+    margin-bottom:2rem;
+    position:relative;
+  }
 
-.timeline-step::before{
-  content:"";
-  position:absolute;
-  left:-1.1rem;
-  top:0.3rem;
-  width:14px;
-  height:14px;
-  background:var(--accent);
-  border-radius:50%;
-  box-shadow:0 0 8px var(--accent);
-}
+  .timeline-step::before{
+    content:"";
+    position:absolute;
+    left:-1.1rem;
+    top:0.3rem;
+    width:14px;
+    height:14px;
+    background:var(--accent);
+    border-radius:50%;
+    box-shadow:0 0 8px var(--accent);
+  }
 
-.timeline-step h3{
-  margin:0;
-  color:var(--accent-soft);
-  font-size:1.35rem;
-}
+  .timeline-step h3{
+    margin:0;
+    color:var(--accent-soft);
+    font-size:1.35rem;
+  }
 
-.image-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:1rem;
-  margin-top:1rem;
-}
+  .image-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:1rem;
+    margin-top:1rem;
+  }
 
-img{
-  max-width:100%;
-  border-radius:10px;
-  display:block;
-  margin:1rem auto;
-  box-shadow:0 8px 20px rgba(0,0,0,0.4);
-}
+  img{
+    max-width:100%;
+    border-radius:10px;
+    display:block;
+    margin:1rem auto;
+    box-shadow:0 8px 20px rgba(0,0,0,0.4);
+  }
 
-.code-block p{
-  text-align:center;
-  text-decoration:underline;
-}
+  .code-block p{
+    text-align:center;
+    text-decoration:underline;
+  }
 
-footer{
-  margin:3rem 0 1rem;
-  text-align:center;
-  opacity:0.7;
-}
+  .buttons {
+    display: flex;
+    justify-content: left;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    text-decoration: none;
+    padding: 0.7rem 1.4rem;
+    border-radius: 6px;
+    border: 1px solid var(--steel);
+    color: var(--steel);
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+  }
+
+  .btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(56, 189, 248, 0.08);
+  }
+
+  footer{
+    margin:3rem 0 1rem;
+    text-align:center;
+    opacity:0.7;
+  }
 </style>
 </head>
 
@@ -131,6 +154,9 @@ footer{
 <header>
   <h1>Automotive Vibration Monitoring</h1>
   <p>Capturing & analysing real-world vibration data from a car using accelerometers</p>
+    <div class="buttons">
+        <a href="/Projects/IoT.html" class="btn">← Back</a>
+    </div>
 </header>
 
 <div class="main-wrapper">

@@ -122,6 +122,30 @@
             font-size: 0.5rem;
             color: #8888cc;
         }
+
+         .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            text-decoration: none;
+            padding: 0.7rem 1.4rem;
+            border-radius: 6px;
+            border: 1px solid var(--steel);
+            color: var(--steel);
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+
+        .btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: rgba(56, 189, 248, 0.08);
+        }
+
     </style>
 </head>
 
@@ -129,20 +153,22 @@
 
 <header>
     <h1>🕹️</h1>
-    <p>Some authentic games I made during my initial comp-sci days</p>
+    <p>Some authentic games and projects I made during my initial comp-sci days</p>
 </header>
+
+
 
 <main>
     <div class="games-grid">
 
-        <a href="../StillUnderConstruction.html" class="game-card">
+        <a href="https://wasp-assassin.itch.io/monster-manic" class="game-card">
             <div class="game-title">💣 Monster Manic (2021)</div>
             <div class="game-description">
                 A favourite of mine, a fun 2D platform game made 
                 using LibGDX & Java! I am currently in the process of rewriting This
                 in go-langauges for Web-Assembly 
             </div>
-            <div class="game-footer">Will be playable here soon!</div>
+            <div class="game-footer">Go To Itch.io ▶</div>
         </a>
 
         <a href="https://wasp-assassin.itch.io/scary-dairy" class="game-card">
@@ -151,24 +177,24 @@
                 First time using a game-engine (Unreal Engine 5.2)! 
                 while studying Games Programming at Derby University
             </div>
-            <div class="game-footer">Go To Itch ▶</div>
+            <div class="game-footer">Go To Itch.io ▶</div>
         </a>
 
-        <a href="../StillUnderConstruction.html" class="game-card">
+        <!-- <a href="../StillUnderConstruction.html" class="game-card">
             <div class="game-title">🦖 Dino & The Elementals (2020)</div>
             <div class="game-description">
                 My first steps into programming! A humourous but foundational
                 stepping-stone for me. 
             </div>
             <div class="game-footer">2D Platformer (Pygame 🐍)</div>
-        </a>
+        </a> -->
 
-        <a href="../StillUnderConstruction.html" class="game-card">
-            <div class="game-title">☄️ Wordle (2023)</div>
+        <a href="https://github.com/Patrick-Wigley/WordGame" class="game-card">
+            <div class="game-title">☄️ Word Game (2023)</div>
             <div class="game-description">
-                Bit of fun in go-lang!
+                Bit of fun in go-lang! Simple Wordle replica
             </div>
-            <div class="game-footer">High Score Mode</div>
+            <div class="game-footer">Go To Github ▶</div>
         </a>
 
         <a href="https://github.com/Patrick-Wigley/3D-Project" class="game-card">
@@ -184,9 +210,18 @@
     </div>
 </main>
 
+
+    <div class="buttons">
+        <a href="/" class="btn">← Back to Home</a>
+    </div>
+
+
 <footer>
     © 2025 · Arcade Collection
 </footer>
+
+
+
 
 </body>
 </html>
