@@ -19,6 +19,9 @@
   display: block;
 }
 
+.imgArea p {
+  font-style: italic;
+}
 
 .modal {
   display: none; 

@@ -206,11 +206,14 @@
           The microcontroller (MCU) used is an ESP32 DevKit V1, featuring a dual-core processor
           with Wi-Fi and Bluetooth capabilities.
         </p>
-
-        <div class="image-grid">
-          <div class="image-box"><img src="Radiator Twin Media/FullSetup.png"></div>
-          <div class="image-box"><img src="Radiator Twin Media/SensorSituation.png"></div>
-          <div class="image-box"><img src="Radiator Twin Media/Breadboard.png"></div>
+        
+        <div class="imgArea">
+          <div class="image-grid">
+            <div class="image-box"><img src="Radiator Twin Media/FullSetup.png"></div>
+            <div class="image-box"><img src="Radiator Twin Media/SensorSituation.png"></div>
+            <div class="image-box"><img src="Radiator Twin Media/Breadboard.png"></div>
+          </div>
+          <p>Figure 1, 2 & 3. Setup</p>
         </div>
 
         <div id="imgModal" class="modal">
@@ -305,8 +308,12 @@ void setup() {
     }
   }
 </code></pre>
-
-      <img src="Radiator Twin Media/ThingSpeak.png">
+      <div class="imgArea">
+          <div class="image-grid">
+           <img style="border-radius: 8px;" src="Radiator Twin Media/ThingSpeak.png">
+          </div>
+          <p style="font-style: italic;">Figure 4. API Dashboard</p>
+      </div>
     </div>
   </section>
 </div>
@@ -323,7 +330,12 @@ void setup() {
         </p>
 
         <h4>Example</h4>
-        <img src="Radiator Twin Media/DigitalTwin.png">
+        <div class="imgArea">
+          <div class="image-grid">
+           <img style="border-radius: 8px;" src="Radiator Twin Media/DigitalTwin.png">
+          </div>
+          <p style="font-style: italic;">Figure 5. Unreal Engine 5 Digital Twin - Conditional Monitoring</p>
+      </div>
       </div>
     </div>
   </section>
@@ -385,69 +397,84 @@ void setup() {
 
 
           Fortunately, we can test the data using pre-constructed statistical analytical tools such as Augmented Dickey-Fuller (ADF). 
-          <img src="Radiator Twin Media/StationaryTest.png">
+          
+          
+          <div class="imgArea">
+            <div class="image-grid">
+              <img style="border-radius: 8px;" src="Radiator Twin Media/StationaryTest.png">
+            </div>
+            <p style="font-style: italic;">Figure 6. ADF Test Results</p>
+          </div>
+
           Brilliant, our data is clearly very stationary. This can be interpreted as such because, if the ADF score is <= 1%, it conveys 99% confidence the data is stationary. 
           There is no signs of trends. And no detected change with seasons, perfect for SARIMA to train with. 
           Therefore, <strong>d = 1</strong>, so SARIMA applies the difference transformation once for us, like we have done here.
-<br>
-<br>  
+          <br>
+          <br>  
           <strong>Determining the p value</strong><br>
           Auto-Regessive model takes "terms", these are the amount of lags which will influence the current e.g. AR(n) where n is the 
           number of highly infleuncial lags. 
           Using the Partial Autocorrelation Function (PACF), we can see exactly how many previous lags have most effect on the current lag.
           This can be determined by reading the number of inital spikes: 
-          <img src="Radiator Twin Media/PACF.png">
+          
+           <div class="imgArea">
+            <div class="image-grid">
+              <img style="border-radius: 8px;" src="Radiator Twin Media/PACF.png">
+            </div>
+            <p style="font-style: italic;">Figure 7. PACF Check Results</p>
+          </div>
+
           The PACF graph tells us that there are <strong>3 significant spikes</strong> before the lags fall back into their mean range. Therefore, 
           <strong>p = 3</strong>.
-<br>
-<br>
+          <br>
+          <br>
           <strong>Seasonal Aspect</strong><br>
           The dataframe has been resampled to strictly 10 minute interval - Therefore, a season (day) is:
-          <img src="Radiator Twin Media/SeasonalDetermination.png">
+          <div class="imgArea">
+            <div class="image-grid">
+              <img style="border-radius: 8px;" src="Radiator Twin Media/SeasonalDetermination.png">
+            </div>
+            <p style="font-style: italic;">Figure 8. s definition</p>
+          </div>
+
           where Minutes in day = 1440 & Sample Interval = 10. This s value is fundemental for the seasonal order parameter in our
           SARIMA model
-<br>
-<br>
-<strong>Results with trained model</strong><br>
-The graph below shows the difference between datapoints from the predicted & truth. The deviations from 0 
-are indicative of incorrect values. 
-<img src="Radiator Twin Media/AccuracyFromTruth.png">
-You can see the prediction was quite close in some areas, especially given the 
-unpredictable nature of a generic household radiator. The thermostat depends on multiple factors such as arbitrary human intervention, boiler temperature regulator & 
-environmental conditions.
-
-<br><br>
-<strong>Here is the exciting part! </strong><br>
-
-<img src="Radiator Twin Media/ForecastComparison.png">
-<!-- <p style="text-align: center; font-style: italic;">Figure 3. Prediction & Truth Comparison</p> -->
-Close call right?! - This has been fun & a brilliant stepping stone for me, into the world of predictive IoT
-
-<!-- <code class="language-python"><pre>
-</pre></code> -->
-
-
-
-          <!-- I plan to utilise a simplistic statisical technique such as the Moving Average (MA),
-          to see if I can get an estimation of the Remaining Useful Life (RUL), by looking at 
-          the gradual increase in latency for each instance of a "heat up". 
           <br>
-          I am currently experimenting as I plan to utilise data-science & ML techniques to estimate
-          the RUL of machinery for my dissertion this year, as part of my undergraduate BSc (hons) Computer Sciences final year project. -->
-          <br><br>
-          <!-- For this senario, I am simply predicting x. Bare in mind, this is a starting point.
-          I have utilised a moving average (MA) ML model to determine y. -->
+          <br>
+          <strong>Results with trained model</strong><br>
+          The graph below shows the difference between datapoints from the predicted & truth. The deviations from 0 
+          are indicative of incorrect values. 
+          <div class="imgArea">
+            <div class="image-grid">
+              <img style="border-radius: 8px;" src="Radiator Twin Media/AccuracyFromTruth.png">
+            </div>
+            <p style="font-style: italic;">Figure 9. Forecasts Accuracy Check</p>
+          </div>
 
-          
+          You can see the prediction was quite close in some areas, especially given the 
+          unpredictable nature of a generic household radiator. The thermostat depends on multiple factors such as arbitrary human intervention, boiler temperature regulator & 
+          environmental conditions.
+
+          <br><br>
+          <strong>Here is the exciting part! </strong><br>
+
+          <div class="imgArea">
+            <div class="image-grid">
+              <img style="border-radius: 8px;" src="Radiator Twin Media/ForecastComparison.png">
+            </div>
+            <p style="font-style: italic;">Figure 10. Prediction vs Truth</p>
+          </div>
+
+          Close call right?! - This has been fun & a brilliant stepping stone for me, into the world of predictive IoT
+
           </p>
-          
         </div>
     </section>
   </div>
 
 
 <footer>
-  © <span id="year"></span> Radiator Digital Twin Progress
+  © <span id="year"></span> Radiator Digital Twin
 </footer>
 
 <script>
@@ -455,13 +482,40 @@ Close call right?! - This has been fun & a brilliant stepping stone for me, into
   const modalImg = document.getElementById("modalImg");
   const closeBtn = document.querySelector(".close-btn");
 
+  /* Image Hover - Wrap images in imgArea div */
+  document.querySelectorAll(".imgArea").forEach(imagesArea => {
+    const imgText = imagesArea.querySelector("p"); 
+    
+    imgText.style.alignContent = ""
+    console.log(imgText.innerText);
+    imagesArea.querySelectorAll("img").forEach(img => {
+      console.log("added")
+      img.addEventListener("mouseover", () => {
+        imgText.style.textDecoration = "underline";
+      });
+      img.addEventListener("mouseleave", () => {
+        console.log("off");
+        imgText.style.textDecoration = "";
+      })
+    });
+
+    inform = imagesArea.getAttribute("data-inform");
+    if (inform != null) {
+      console.log("Setting inform to: " + imagesArea.inform);
+      imagesArea.addEventListener("hover", () => {
+          text.style.display = "flex"; 
+      });
+    }
+  });
+
+  /* Modal */
   document.querySelectorAll(".image-box img").forEach(img => {
   img.addEventListener("click", () => {
       modal.style.display = "flex";
       modalImg.src = img.src;
 
   });
-  });
+  });  
 
   closeBtn.addEventListener("click", () => {
   modal.style.display = "none";
