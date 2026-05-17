@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>University Projects</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: #f4f6f8;
+      color: #2c3e50;
+    }
+
+    header {
+      background: #1f3a5f;
+      color: white;
+      padding: 40px 20px;
+      text-align: center;
+      border-bottom: 4px solid #c8a96a;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+      letter-spacing: 1px;
+    }
+
+    header p {
+      margin-top: 10px;
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+
+    .main-wrapper {
+      max-width: 1100px;
+      margin: auto;
+      padding: 40px 20px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 25px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 10px;
+      padding: 25px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      transition: all 0.25s ease;
+      border-left: 6px solid #1f3a5f;
+      cursor: pointer;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    }
+
+    .card h2 {
+      margin-top: 0;
+      font-size: 1.3rem;
+      color: #1f3a5f;
+    }
+
+    .module {
+      font-size: 1.0rem;
+      font-weight: bold;
+      color: #c8a96a;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      font-size: 0.95rem;
+      line-height: 1.5;
+      color: #555;
+    }
+
+    .level {
+      margin-top: 15px;
+      font-size: 0.85rem;
+      font-style: italic;
+      color: #888;
+    }
+    
+    .buttons {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+
+    .btn {
+        text-decoration: none;
+        padding: 0.7rem 1.4rem;
+        border-radius: 6px;
+        border: 1px solid var(--steel);
+        color: var(--steel);
+        font-size: 0.9rem;
+        transition: all 0.2s ease;
+    }
+
+    .btn:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+        background: rgba(56, 189, 248, 0.08);
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 0.85rem;
+      color: #777;
+    }
+
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>University Projects</h1>
+  <p>Coursework, assignments, and academic explorations done during my journey at Derby University</p>
+</header>
+
+<div class="main-wrapper">
+
+  <div class="grid">
+
+    
+    <div class="card" onclick="location.href='https://github.com/Patrick-Wigley/Vectors-Matrices-LinearTransformations'">
+      <div class="module">Computational Mathematics</div>
+      <h2>Linear Systems & Matrices Tool</h2>
+      <p>
+        A python package using OOP for instatiating matrices and vectors. These can be used in conjuction to solve linear system equastions
+      </p>
+      <div class="level">Level 4 HNC</div>
+    </div>
+
+    <div class="card" onclick="location.href='https://github.com/Patrick-Wigley/Messenger-App'">
+      <div class="module">Network Systems Development</div>
+      <h2>Messenger App</h2>
+      <p>
+        A Local-Area-Network messenger application using Python, SQL, PyQT6. With contacts, texts, calls, data persistence and security.
+      </p>
+      <div class="level">Level 5 HND</div>
+    </div>
+
+    <div class="card" onclick="location.href='https://github.com/Patrick-Wigley/Expression-Parser'">
+      <div class="module">Functional Programming</div>
+      <h2>Math Expression Parser</h2>
+      <p>
+        Takes string inputs of arbitrary expression for parsering and computing with correct precedence. Written in Haskell 
+      </p>
+      <div class="level">Level 5 HND</div>
+    </div>
+
+    <div class="card" onclick="location.href='https://github.com/Patrick-Wigley/Data-Format-Parsers'">
+      <div class="module">Functional Programming</div>
+      <h2>JSON & CSV Parsing</h2>
+      <p>
+        Parsing standardised JSON and CSV files into an in memory tree structure (object instantiation). Written in Python using recursion and data aggregration techniques
+      </p>
+      <div class="level">Level 5 HND</div>
+    </div>
+
+    <div class="card" onclick="location.href='/StillUnderConstruction.html'">
+      <div class="module">Frontiers in AI and Data Science</div>
+      <h2>Prohibitored Item Detector</h2>
+      <p>
+        For classification & localisation of a prohibitored item within luggage passing through Xray scanners at an airport.
+        Performing EDA on the chosen training dataset, identify and implementing pre-processing within the methodology for 
+        training and comparing CNN based vs DETR based object detector models.
+        
+      </p>
+      <div class="level">Level 6</div>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="buttons">
+    <a href="/" class="btn">← Back to Home</a>
+</div>
+
+<footer>
+  © 2026 | Patrick Wigley Portfolio
+</footer>
+
+</body>
+</html>
