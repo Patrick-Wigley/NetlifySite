@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Machine Health Monitoring</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+  <link rel="stylesheet" href="../../styles/imgs.css">
+  <link rel="stylesheet" href="../../styles/base.css">
+
+
+
+  <link rel="stylesheet" href="../styles/imgs.css">
+
+  <style>
+    :root {
+      --accent: #22c55e;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: #0f1720;
+      color: #e5e7eb;
+    }
+
+    header {
+      background: linear-gradient(135deg, #1f2937, #111827);
+      padding: 50px 20px;
+      text-align: center;
+      border-bottom: 3px solid #22c55e;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+      color: #22c55e;
+    }
+
+    header p {
+      margin-top: 10px;
+      color: #9ca3af;
+      font-size: 1.1rem;
+    }
+
+    .main-wrapper {
+      max-width: 1000px;
+      margin: auto;
+      padding: 40px 20px;
+    }
+
+    a {
+      color: #22c55e;
+      font-weight: bold;
+      
+    }
+    a :hover {
+      font-weight: normal;
+    }
+
+    h2 {
+      color: #22c55e;
+      margin-top: 40px;
+      border-left: 5px solid #22c55e;
+      padding-left: 10px;
+    }
+
+    p {
+      line-height: 1.6;
+      color: #d1d5db;
+    }
+
+    .highlight {
+      background: #111827;
+      border-left: 4px solid #22c55e;
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 6px;
+    }
+
+    img{
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 1rem auto;
+      border-radius: 2rem;
+    }
+
+    .image-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:1rem;
+      /* margin-top:1rem; */
+    }
+
+    .image-box img {
+      width: 100%;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .image-container img:hover {
+      transform: scale(1.02);
+    }
+
+
+    .buttons {
+      display: flex;
+      justify-content: left;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      text-decoration: none;
+      padding: 0.7rem 1.4rem;
+      border-radius: 6px;
+      border: 1px solid var(--steel);
+      color: var(--steel);
+      font-size: 0.9rem;
+      transition: all 0.2s ease;
+    }
+
+    .btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(56, 189, 248, 0.08);
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      color: #6b7280;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>Homemade Machine Health Monitoring Solution</h1>
+  <p>Machine Health Computation for Maintenance Strategies</p>
+    <div class="buttons">
+      <a href="/Projects/Smart Solutions.html" class="btn">← Back</a>
+    </div>
+</header>
+
+<div class="main-wrapper">
+  <h2>Artifacts</h2>
+  <ul>
+      <li>
+        <a href="https://www.youtube.com/watch?v=nAc6T_KNxUU">
+          Example Video ▶️
+        </a>
+      </li>
+      <li>
+        <a href="https://github.com/Patrick-Wigley/Independent-Project-Contents">
+          GitHub Repository 📂
+        </a>
+      </li>
+      <li>
+        <a href="">
+          Research Paper 📝
+        </a>
+      </li>
+  </ul>
+
+  <h2>Overview</h2>
+  <p>
+      As maintenance strategies and downtime reduction remain as a prevalent topic for manufacturing 
+      industries, Industry 4.0 (I4.0) solutions are becoming more widely considerable, such as Conditional-Based Monitoring (CBM).
+      Although this endeavour can be a novelty for industries, and the complexities of 
+      at each milestone can be puzzling, as there is not a strong standardised approach for the implementation 
+      of an entire CBM solution. Therefore, this study presents a journey, documenting, testing, analysing and 
+      discussing the outcomes of our approaches at each milestone, to help contribute to the standardisation 
+      of implementing entire CBM solutions, from the ground upwards.
+  </p>
+
+  <h2>Motivation</h2>
+  <p>The uncertain lifespan of machine components and their spontaneous failures can bring processes to a 
+    halt. Consequently, downtime of functioning machines impacts the productive and efficient workflows in 
+    manufacturing environments, especially when forced to wait for the arrival of replacements. A
+    recent survey conducted by Fluke UK Ltd reveals that 68% of UK manufacturers suffered downtime in the 
+    past year with 46% reporting 6-10 downtime incidents a week; At an average loss of £1.36M per hour. 
+    (Fluke UK Ltd, 2025). This issue is global, with other surveys discovering astronomical, consequential 
+    economic losses in revenue & expenses, due to unplanned downtime & inefficient maintenance 
+    strategies (Thomas & Weiss, 2020)
+    <br><br>
+    Although, with the rise of I4.0 technologies, such as Internet of Things (IoT), Machine Learning (ML) and Digital Twins (DT), an industries assets
+    and their behavouirs can become much more verbose to maintenance engineers. A connected microcontroller with a sensor on a machine (IoT) can pass 
+    live data to a ML component, for pattern/trend analysis and anomaly discovery, giving insights into a machines state and the gradual underlying behavouiral changes. 
+    This can be shown comprehensively in a dashboard or, within an immersive Digital Twin (DT) environment, where an industries manufacturing environment can be traversed digitally,
+    and their machines can be interacted with, showing conditional effects such as local colour changes on the asset to indicate health (100% is green, 0% is red) or asset-status 
+    labelling to describe component failures.
+
+    <br><br>
+    This is a known phenomena now, known as Conditional Based Monitoring. Industries are opting for these technologies although, where to start? how easy is it? and 
+    is this possible for an industry to implement this themselves, with cheaper components? My study aimed to investigate this, with a self-built CBM solution prototype, 
+    consisting of the foundations which can manifest into ambitious applications! During this study I took some "unauthodox" approaches, such as 3D printing the IoT components
+    enclosure, so read on if you're interested and see where I am at currently with this 
+  </p>
+
+  <div class="highlight">
+    <strong>Key Idea:</strong> 
+    Develop a self-built CBM solution, providing a means of anticipation, with early-stage discovery and developmental degradation,
+    giving justitifcation for the scheduling of the next maintenance timing and the requiring attention from the machine being monitored.
+  </div>
+
+  <h2>The Prototype</h2>
+  <p>I have not gone into great details here, please review my paper for full technicality. Although, I wanted to demonstrate some intesting aspects in this CBM solution.</p>
+  <h3>Data Acquisition</h3>
+  <p>
+    In this CBM solution, vibrations are observed through accelerations measurements. Therefore, the MMA8451 Adafruit accelerometer is used with an Esp32 microcontroller. This is 
+    capable of capturing samples upto 800Hz frequency; Each acceleration signal captured is a second long, thus yielding 800 samples. Signals are captured periodically (10 minute interval). 
+    <br>
+      <!-- <div class="image-container">
+        <img src="CBM Media/Accelerometer IoT.jpg" alt="PCB" onclick="openModal(this)">
+      </div> -->
+      <div class="imgArea">
+        <div class="image-box">
+          <img src="CBM Media/Accelerometer IoT.jpg" alt="PCB">
+        </div>
+        <p style="font-style: italic;">Figure 1. IIoT component</p>
+      </div>
+
+    <br><br>
+    
+    
+    Great, this PCB board hosting the accelerometer can just be appended to a machine right! Well, it isn't exactly as straight forwards as this, nor appropriate. 
+    There are a multitude of factors that need considering, including external factors (environment, users, work-loads). Therefore, unconventially I designed and 3D printed an
+    enclosure for the electronics used. Typically, industrial sensors would come with a strong metalic enclosure, ensuring a high ingress rating (IP64+), operating temperature range, and etc.
+    
+    <br>
+      <div class="imgArea">
+        <div class="image-box">
+          <img src="CBM Media/Enclosure.jpg" alt="Enclosure"  data-inform="">
+        </div>
+        <p style="font-style: italic;">Figure 2. Enclosure Design & Print</p>
+      </div>
+
+     
+    <br><br>
+
+    <br><br>
+    The Esp is programmed using ArduinoIDE, effectively establishing Wi-Fi & serial connectivity then, capturing the signal, performing some preprocessing & transmitting to MathWorks Thingspeak API.
+    <br><br>
+
+    The ML component does not use the 800 raw samples, but the features. And as ThingSpeak channels can only hold 8 single-valued fields, the feature extraction is performed on edge. These features 
+    are then sent to the API, condensing the raw datasamples into uniquely meaningful statistical scalars. Feature engineering has been proving its worth within ML, and for improving accuracy in contrary
+    to just using the raw datasamples.
+    Features extracted are within time & frequency domain, these are:
+    <ul>
+      <li>Standard Devation</li>
+      <li>Mean</li>
+      <li>Kurtosis</li>
+      <li>Skewness</li>
+      <li>Peak-to-Peak</li>
+      <li>Root Mean Square</li>
+      <li>Crest Factor</li>
+
+      <li>Spectral Spread</li>
+      <li>Spectral Centroid</li>
+      <li>Spectral Total</li>
+      <li>Spectral Entropy</li>
+      <li>Spectral Peak</li>
+    </ul>
+
+    <br>
+    Convienently, there mathematical definitions can be found in literature, these was referenced and implemented within the Esps code.
+
+    <br>
+      <div class="imgArea">
+        <div class="image-grid">
+          <div class="image-box"><img src="CBM Media/Feature Computation.jpg" alt="Feature Computation"></div>
+          <div class="image-box"><img src="CBM Media/API Dashboard.jpg" alt="Thing Speak Dashboard"></div>
+        </div>
+      <p style="font-style: italic;">Figure 3 & 4. Feature engineering & IoT Cloud Storage</p>
+
+      </div>
+  </p>
+
+  <h3>Anomaly Discovery & Health Estimation</h3>
+    
+  <p>
+    The livestreaming data from the sensor node(s) are pulled from the API into a python script, to be preprocessed (cleaned, standardised and rolling averaged for reliablity, accuracy and fair assessment). 
+    The ML component uses an autoencoder, which is a Recurrent Nureal Network (RNN) based decoding & encoding architecture. Reconstructuring the learned healthy patterns at the current time.
+    The accuracy of these reconstructions are the fundemental component needed to determine the machines behavioural changes. This is known as the reconstruction errors, calcuated using 
+    Mean Squared Error (MSE), assessing the distance between this predicted reconstructed features against the actual feature values at this corresponding datapoint. 
+    
+    <br>
+    These MSEs are then smoothed, using an exponentially weighted moving averages, which gives more impact to the most recent datapoints. This allowes older anomalies to have less impact on 
+    overall score, as they could have been natural hiccups, and more recent trends are most concerning, as these could be sudden breakages which need attention. If anomalies continue to arise,
+    these accumalatively impact the health score. If anomalies die down, the health score slowly rises back up, but neither back to the normal baseline, retaining memory of previous abnormal 
+    events. Finally, the anomaly scores are negated & used as exponents to eulers constant number, which effectively keeps the score constrained to the range of 1.0-0. Try it! See 
+    2.7 ** -0 = 1, 2.7 ** -0.3 = 0.74,  2.7 ** -0.6 = 0.55 and so on! (negative exponents always yield x < 1)
+
+    <br>
+
+
+    <div class="imgArea">
+      <div class="image-grid">
+        <div class="image-box"><img src="CBM Media/Machine Health.jpg" alt="Live Health Index"  data-inform=""></div>
+      </div>
+      <p style="font-style: italic;">Figure 5. Machine Health Metric</p>
+    </div>
+  </p>
+
+ 
+
+  <h3>Digital Twin</h3>
+  <p>
+    The ML script is integrated into an Unreal Engine 5 environment, computing the machines health in live time. 
+    The industries machine assets can be portrayed and interacted with in the digital environment, respresented as synommonous meshes
+    (my example uses the UE5 default model mesh due to limitations of the study). Finally, the health-score is applied as a colour mask the models mesh. Effectively
+    making the machines digital replicas colour redder the lower the health-score is.
+  
+  <br>
+  <div class="imgArea">
+    <div class="image-grid">
+      <div class="image-box"><img src="CBM Media/Digital Twin.jpg" alt="Digital Twin" data-inform=""></div>
+    </div>
+    <p style="font-style: italic;">Figure 6. Digital Twin</p>
+  </div>
+    
+  </p>
+
+
+
+  <h2></h2>
+  
+  <div id="imgModal" class="modal">
+    <span class="close-btn">&times;</span>
+    <img style="width: 50%; height: auto;" id="modalImg" class="modal-content" />
+  </div>
+</div>
+
+<footer>
+  © 2026 | Machine Health Monitoring Project
+</footer>
+
+<script>
+  const modal = document.getElementById("imgModal");
+  const modalImg = document.getElementById("modalImg");
+  const closeBtn = document.querySelector(".close-btn");
+  
+  document.querySelectorAll(".image-box img").forEach(img => {
+  console.log("Image found: " + img.getAttribute("data-responsive"));
+    img.addEventListener("click", () => {
+        modal.style.display = "flex";
+        modalImg.src = img.src;
+    });
+  });
+
+  document.querySelectorAll(".imgArea").forEach(imagesArea => {
+    const imgText = imagesArea.querySelector("p"); 
+    if (imgText != null) {
+      imgText.style.alignContent = ""
+      console.log(imgText.innerText);
+      imagesArea.querySelectorAll("img").forEach(img => {
+        console.log("added")
+        img.addEventListener("mouseover", () => {
+          imgText.style.textDecoration = "underline";
+        });
+        img.addEventListener("mouseleave", () => {
+          console.log("off");
+          imgText.style.textDecoration = "";
+        })
+      });
+    }
+
+    inform = imagesArea.getAttribute("data-inform");
+    if (inform != null) {
+      console.log("Setting inform to: " + imagesArea.inform);
+      imagesArea.addEventListener("hover", () => {
+          text.style.display = "flex"; 
+      });
+    }
+  });
+  
+    
+  closeBtn.addEventListener("click", () => {
+      modal.style.display = "none";
+  });
+
+  modal.addEventListener("click", (e) => {
+  if (e.target === modal) {
+      modal.style.display = "none";
+  }
+  });
+
+
+  // function openModal(img) {
+  //   let modal = document.createElement("div");
+  //   modal.style.position = "fixed";
+  //   modal.style.top = 0;
+  //   modal.style.left = 0;
+  //   modal.style.width = "100%";
+  //   modal.style.height = "100%";
+  //   modal.style.background = "rgba(0,0,0,0.9)";
+  //   modal.style.display = "flex";
+  //   modal.style.alignItems = "center";
+  //   modal.style.justifyContent = "center";
+
+  //   let modalImg = document.createElement("img");
+  //   modalImg.src = img.src;
+  //   modalImg.style.maxWidth = "90%";
+  //   modalImg.style.maxHeight = "90%";
+  //   modalImg.style.borderRadius = "10px";
+
+  //   modal.onclick = () => document.body.removeChild(modal);
+
+  //   modal.appendChild(modalImg);
+  //   document.body.appendChild(modal);
+  // }
+</script>
+
+</body>
+</html>
